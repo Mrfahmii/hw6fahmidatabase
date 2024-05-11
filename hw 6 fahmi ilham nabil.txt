@@ -1,0 +1,169 @@
+Microsoft Windows [Version 10.0.16299.15]
+(c) 2017 Microsoft Corporation. All rights reserved.
+
+C:\Users\CANGKRINGCITY>psql --username=postgres
+Password for user postgres:
+psql (15.5)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# help
+You are using psql, the command-line interface to PostgreSQL.
+Type:  \copyright for distribution terms
+       \h for help with SQL commands
+       \? for help with psql commands
+       \g or terminate with semicolon to execute query
+       \q to quit
+postgres=# create database datajualan;
+CREATE DATABASE
+postgres=# create table kategori(kategori mainan_plastik)
+postgres-# \l
+                                                              List of databases
+     Name      |  Owner   | Encoding |        Collate         |         Ctype          | ICU Locale | Locale Provider |   Access privileges
+---------------+----------+----------+------------------------+------------------------+------------+-----------------+-----------------------
+ Dbsiswa       | postgres | UTF8     | English_Indonesia.1252 | English_Indonesia.1252 |            | libc            |
+ datajualan    | postgres | UTF8     | English_Indonesia.1252 | English_Indonesia.1252 |            | libc            |
+ nama_database | postgres | UTF8     | English_Indonesia.1252 | English_Indonesia.1252 |            | libc            |
+ postgres      | postgres | UTF8     | English_Indonesia.1252 | English_Indonesia.1252 |            | libc            |
+ template0     | postgres | UTF8     | English_Indonesia.1252 | English_Indonesia.1252 |            | libc            | =c/postgres          +
+               |          |          |                        |                        |            |                 | postgres=CTc/postgres
+ template1     | postgres | UTF8     | English_Indonesia.1252 | English_Indonesia.1252 |            | libc            | =c/postgres          +
+               |          |          |                        |                        |            |                 | postgres=CTc/postgres
+(6 rows)
+
+
+postgres-# \c datajualan;
+You are now connected to database "datajualan" as user "postgres".
+datajualan-# create table kategori(kategori maianan_plastik);
+ERROR:  syntax error at or near "create"
+LINE 2: create table kategori(kategori maianan_plastik);
+        ^
+datajualan=# create table kategori(kategori maianan_plastik)
+datajualan-# \dt
+Did not find any relations.
+datajualan-# create table kategori(kategori mainan_plastik);
+ERROR:  syntax error at or near "create"
+LINE 2: create table kategori(kategori mainan_plastik);
+        ^
+datajualan=# create table kategori(kategori mainan_plastik);
+ERROR:  type "mainan_plastik" does not exist
+LINE 1: create table kategori(kategori mainan_plastik);
+                                       ^
+datajualan=# create table kategori(kategori mainan_plastik);
+ERROR:  type "mainan_plastik" does not exist
+LINE 1: create table kategori(kategori mainan_plastik);
+                                       ^
+datajualan=# create table kategori(name varchar);
+CREATE TABLE
+datajualan=# \dt
+          List of relations
+ Schema |   Name   | Type  |  Owner
+--------+----------+-------+----------
+ public | kategori | table | postgres
+(1 row)
+
+
+datajualan=# create table barang(id integer, name varchar);
+CREATE TABLE
+datajualan=# \dt
+          List of relations
+ Schema |   Name   | Type  |  Owner
+--------+----------+-------+----------
+ public | barang   | table | postgres
+ public | kategori | table | postgres
+(2 rows)
+
+
+datajualan=# \d datajualan
+Did not find any relation named "datajualan".
+datajualan=# \d barang
+                    Table "public.barang"
+ Column |       Type        | Collation | Nullable | Default
+--------+-------------------+-----------+----------+---------
+ id     | integer           |           |          |
+ name   | character varying |           |          |
+
+
+datajualan=# select * from barang
+datajualan-# select * from barang;
+ERROR:  syntax error at or near "select"
+LINE 2: select * from barang;
+        ^
+datajualan=# select * from barang;
+ id | name
+----+------
+(0 rows)
+
+
+datajualan=# insert into barang(id, name) values(01, 'bus_tayo');
+INSERT 0 1
+datajualan=# insert into barang(id, name) values(02, 'bus_tpao');
+INSERT 0 1
+datajualan=# select * from barang;
+ id |   name
+----+----------
+  1 | bus_tayo
+  2 | bus_tpao
+(2 rows)
+
+
+datajualan=# update barang set name='bus_pasar' where id=01;
+UPDATE 1
+datajualan=# select * from kategori;
+ name
+------
+(0 rows)
+
+
+datajualan=# insert into kategori(kategori) values('mainan_plastik);
+datajualan'# \d
+datajualan'# \dt
+datajualan'# \d kategori
+datajualan'# insert into kategori(kategori) values('mainan_plastik);
+ERROR:  syntax error at or near "mainan_plastik"
+LINE 5: insert into kategori(kategori) values('mainan_plastik);
+                                               ^
+datajualan=# insert into kategori(kategori) values('mainan_plastik');
+ERROR:  column "kategori" of relation "kategori" does not exist
+LINE 1: insert into kategori(kategori) values('mainan_plastik');
+                             ^
+datajualan=# insert into kategori(kategori) values('mainan_plastik');
+ERROR:  column "kategori" of relation "kategori" does not exist
+LINE 1: insert into kategori(kategori) values('mainan_plastik');
+                             ^
+datajualan=# \d kategori
+                   Table "public.kategori"
+ Column |       Type        | Collation | Nullable | Default
+--------+-------------------+-----------+----------+---------
+ name   | character varying |           |          |
+
+
+datajualan=# update kategori set name='kategori' where varchar='mainan_plastik';
+ERROR:  column "varchar" does not exist
+LINE 1: update kategori set name='kategori' where varchar='mainan_pl...
+                                                  ^
+datajualan=# update kategori set name='kategori' where character varying='mainan_plastik';
+ERROR:  syntax error at or near "="
+LINE 1: ...tegori set name='kategori' where character varying='mainan_p...
+                                                             ^
+datajualan=# update kategori set name='kategori' where character varying='mainan_plastik';
+ERROR:  syntax error at or near "="
+LINE 1: ...tegori set name='kategori' where character varying='mainan_p...
+                                                             ^
+datajualan=# update kategori set name='kategori' where character varying='mainan_plastik';
+ERROR:  syntax error at or near "="
+LINE 1: ...tegori set name='kategori' where character varying='mainan_p...
+                                                             ^
+datajualan=# UPDATE kategori SET name='kategori' WHERE name='mainan_plastik';
+UPDATE 0
+datajualan=#
+datajualan=# \d kategori
+                   Table "public.kategori"
+ Column |       Type        | Collation | Nullable | Default
+--------+-------------------+-----------+----------+---------
+ name   | character varying |           |          |
+
+
+datajualan=#
